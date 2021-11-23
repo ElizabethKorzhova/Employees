@@ -1,0 +1,25 @@
+.employees {
+    padding: 50px;
+    width: 50%;
+    font-family: "Roboto", sans-serif;
+}
+
+.employeesTitle {
+    font-size: 18px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.employeesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.letter {
+    padding-top: 40px;
+}
+
+.employeesList li {
+    width: 200px;
+    padding-top: 20px;
+}

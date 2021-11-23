@@ -1,0 +1,29 @@
+.employeeName {
+    font-size: 16px;
+    font-weight: 500;
+    padding-top: 10px;
+}
+
+.radioWrapper {
+    display: block;
+    padding-top: 10px;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.radioSpan {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.activeEmployee {
+    color: #252bff;
+}
+
+.notActiveEmployee {
+    color: #000;
+}
