@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Employee from "../Components/Employee";
+import { saveActiveEmployees, loadActiveEmployees } from "../localStorage";
+import EmployeesGroupedByAlphabet from "../Components/EmployeesGroupedByAlphabet";
+import EmployeesBirthdayByMonth from "../Components/EmployeesBirthdayByMonth";
 import styles from "../styles/Employees.module.css";
-import { findAllByDisplayValue } from "@testing-library/react";
 
 const radioEnum = {
   notActive: "0",
@@ -38,7 +39,9 @@ const letters = Array(26)
 const Employees = () => {
   const [employeesData, setEmployeesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeEmployees, setActiveEmployees] = useState([]);
+  const [activeEmployees, setActiveEmployees] = useState(
+    loadActiveEmployees("activeEmployees")
+  );
   const [employeesBirthdayData, setEmployeesBirthdayData] = useState([]);
 
   useEffect(async () => {
@@ -83,6 +86,10 @@ const Employees = () => {
     setIsLoading(false);
   }, []);
 
+  useEffect(() => {
+    saveActiveEmployees("activeEmployees", activeEmployees);
+  }, [activeEmployees]);
+
   const handleRadioButton = (event) => {
     const employeeName = event.target.name;
     if (event.target.value === radioEnum.active) {
@@ -96,65 +103,20 @@ const Employees = () => {
 
   return (
     <div className={styles.employeesSection}>
-      <div className={styles.employees}>
-        <h2 className={styles.employeesTitle}>Employees</h2>
-        <ul className={styles.employeesContainer}>
-          {letters.map((letter) => (
-            <li className={styles.letter} key={letter}>
-              <h3>{letter}</h3>
-              <ul className={styles.employeesList}>
-                {isLoading || !employeesData[letter].length ? (
-                  <li>No Employees</li>
-                ) : (
-                  employeesData[letter].map((employee) => (
-                    <Employee
-                      employee={employee}
-                      activeEmployees={activeEmployees}
-                      handleRadioButton={handleRadioButton}
-                      radioEnum={radioEnum}
-                    />
-                  ))
-                )}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Employees birthday</h2>
-        <ul>
-          {activeEmployees.length ? (
-            months.map((month) => (
-              <li key={month.index}>
-                {month.title}
-                <ul>
-                  {isLoading ||
-                  !employeesBirthdayData[month.index].find((emp) =>
-                    activeEmployees.includes(emp.id)
-                  ) ? (
-                    <li>No Employees</li>
-                  ) : (
-                    employeesBirthdayData[month.index].map((employee) => {
-                      if (activeEmployees.includes(employee.id))
-                        return (
-                          <li key={employee.id}>{`${employee.firstName} ${
-                            employee.lastName
-                          } ${employee.dob.getDate()} ${
-                            months.find(
-                              (m) => m.index === employee.dob.getMonth()
-                            ).title
-                          } ${employee.dob.getFullYear()} `}</li>
-                        );
-                    })
-                  )}
-                </ul>
-              </li>
-            ))
-          ) : (
-            <li>Employees List is empty</li>
-          )}
-        </ul>
-      </div>
+      <EmployeesGroupedByAlphabet
+        letters={letters}
+        isLoading={isLoading}
+        employeesData={employeesData}
+        activeEmployees={activeEmployees}
+        handleRadioButton={handleRadioButton}
+        radioEnum={radioEnum}
+      />
+      <EmployeesBirthdayByMonth
+        activeEmployees={activeEmployees}
+        months={months}
+        isLoading={isLoading}
+        employeesBirthdayData={employeesBirthdayData}
+      />
     </div>
   );
 };
