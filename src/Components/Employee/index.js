@@ -8,7 +8,7 @@ const Employee = ({
   radioEnum,
 }) => {
   return (
-    <li className={styles.employeeContainer}>
+    <li key={employee.id}>
       <h4
         className={`${styles.employeeName}
         ${
@@ -17,16 +17,15 @@ const Employee = ({
             : styles.notActiveEmployee
         }`}
       >
-        {employee}
+        {`${employee.firstName} ${employee.lastName}`}
       </h4>
       <div className={styles.radioWrapper}>
         <label className={styles.radioLabel}>
           <input
-            className={styles.radioButton}
             type="radio"
-            name={employee}
+            name={employee.id}
             value={radioEnum.notActive}
-            checked={!activeEmployees.includes(employee)}
+            checked={!activeEmployees.includes(employee.id)}
             onChange={handleRadioButton}
           />
           <span>not active</span>
@@ -36,9 +35,9 @@ const Employee = ({
         <label className={styles.radioLabel}>
           <input
             type="radio"
-            name={employee}
+            name={employee.id}
             value={radioEnum.active}
-            checked={activeEmployees.includes(employee)}
+            checked={activeEmployees.includes(employee.id)}
             onChange={handleRadioButton}
           />
           <span className={styles.radioSpan}>active</span>
