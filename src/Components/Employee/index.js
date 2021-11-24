@@ -8,7 +8,7 @@ const Employee = ({
   radioEnum,
 }) => {
   return (
-    <li key={employee.id}>
+    <li>
       <h4
         className={`${styles.employeeName}
         ${
