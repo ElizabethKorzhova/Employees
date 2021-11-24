@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./styles.module.css";
+import PropTypes from "prop-types";
 
 const Employee = ({
   employee,
@@ -45,6 +46,29 @@ const Employee = ({
       </div>
     </li>
   );
+};
+
+Employee.propTypes = {
+  employee: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+  }),
+  employeesData: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+      })
+    )
+  ),
+  activeEmployees: PropTypes.array.isRequired,
+  handleRadioButton: PropTypes.func.isRequired,
+  radioEnum: PropTypes.shape({
+    notActive: PropTypes.string.isRequired,
+    active: PropTypes.string.isRequired,
+  }),
 };
 
 export default Employee;

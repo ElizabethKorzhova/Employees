@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
 import Employee from "../Employee";
+import PropTypes from "prop-types";
 
 const EmployeesGroupedByAlphabet = ({
   letters,
@@ -37,6 +38,26 @@ const EmployeesGroupedByAlphabet = ({
       </ul>
     </div>
   );
+};
+
+EmployeesGroupedByAlphabet.propTypes = {
+  letters: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  employeesData: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+      })
+    )
+  ),
+  activeEmployees: PropTypes.array.isRequired,
+  handleRadioButton: PropTypes.func.isRequired,
+  radioEnum: PropTypes.shape({
+    notActive: PropTypes.string.isRequired,
+    active: PropTypes.string.isRequired,
+  }),
 };
 
 export default EmployeesGroupedByAlphabet;

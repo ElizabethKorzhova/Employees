@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { saveActiveEmployees, loadActiveEmployees } from "../localStorage";
+import {
+  saveActiveEmployees,
+  loadActiveEmployees,
+} from "../utils/localStorage";
 import EmployeesGroupedByAlphabet from "../Components/EmployeesGroupedByAlphabet";
 import EmployeesBirthdayByMonth from "../Components/EmployeesBirthdayByMonth";
 import styles from "../styles/Employees.module.css";
@@ -37,53 +40,56 @@ const letters = Array(26)
   .map((el, i) => String.fromCharCode(65 + i));
 
 const Employees = () => {
-  const [employeesData, setEmployeesData] = useState([]);
+  const [employeesData, setEmployeesData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [activeEmployees, setActiveEmployees] = useState(
     loadActiveEmployees("activeEmployees")
   );
-  const [employeesBirthdayData, setEmployeesBirthdayData] = useState([]);
+  const [employeesBirthdayData, setEmployeesBirthdayData] = useState({});
 
-  useEffect(async () => {
-    const employees = await getEmployeesData();
-    const employeesObj = Object.fromEntries(
-      letters.map((letter) => [letter, []])
-    );
-    const employeesBdObj = Object.fromEntries(
-      months.map((month) => [month.index, []])
-    );
-    employees.forEach((employee) => {
-      employeesObj[employee.firstName.charAt(0).toUpperCase()].push({
-        id: employee.id,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
+  useEffect(() => {
+    const fetchData = async () => {
+      const employees = await getEmployeesData();
+      const employeesObj = Object.fromEntries(
+        letters.map((letter) => [letter, []])
+      );
+      const employeesBdObj = Object.fromEntries(
+        months.map((month) => [month.index, []])
+      );
+      employees.forEach((employee) => {
+        employeesObj[employee.firstName.charAt(0).toUpperCase()].push({
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+        });
       });
-    });
 
-    employees.forEach((employee) => {
-      const date = new Date(employee.dob);
-      employeesBdObj[date.getMonth()].push({
-        id: employee.id,
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        dob: date,
+      employees.forEach((employee) => {
+        const date = new Date(employee.dob);
+        employeesBdObj[date.getMonth()].push({
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          dob: date,
+        });
       });
-    });
 
-    letters.forEach((letter) =>
-      employeesObj[letter].sort((emp1, emp2) =>
-        emp1.firstName < emp2.firstName ? -1 : 1
-      )
-    );
+      letters.forEach((letter) =>
+        employeesObj[letter].sort((emp1, emp2) =>
+          emp1.firstName < emp2.firstName ? -1 : 1
+        )
+      );
 
-    months.forEach((month) =>
-      employeesBdObj[month.index].sort((emp1, emp2) =>
-        emp1.lastName < emp2.lastName ? -1 : 1
-      )
-    );
-    setEmployeesData(employeesObj);
-    setEmployeesBirthdayData(employeesBdObj);
-    setIsLoading(false);
+      months.forEach((month) =>
+        employeesBdObj[month.index].sort((emp1, emp2) =>
+          emp1.lastName < emp2.lastName ? -1 : 1
+        )
+      );
+      setEmployeesData(employeesObj);
+      setEmployeesBirthdayData(employeesBdObj);
+      setIsLoading(false);
+    };
+    fetchData();
   }, []);
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import EmployeeWithBirthday from "../EmployeeWithBirthday";
 import styles from "./styles.module.css";
 
@@ -32,6 +33,7 @@ const EmployeesBirthdayByMonth = ({
                           months={months}
                         />
                       );
+                    return null;
                   })
                 )}
               </ul>
@@ -43,6 +45,27 @@ const EmployeesBirthdayByMonth = ({
       </ul>
     </div>
   );
+};
+
+EmployeesBirthdayByMonth.propTypes = {
+  activeEmployees: PropTypes.array.isRequired,
+  months: PropTypes.arrayOf(
+    PropTypes.shape({
+      index: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+  isLoading: PropTypes.bool.isRequired,
+  employeesBirthdayData: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        firstName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        dob: PropTypes.instanceOf(Date),
+      })
+    )
+  ),
 };
 
 export default EmployeesBirthdayByMonth;
