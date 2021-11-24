@@ -1,0 +1,38 @@
+.employeesBirthdaySection {
+    width: 34%;
+}
+
+.employeesBirthdayTitle {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.375rem;
+    padding-bottom: 2.5rem;
+}
+
+.listOfMonth {
+    border-top: 1px solid #c0c0c0;
+}
+
+.monthItem {
+    padding-top: 1.875rem;
+}
+
+.monthTitle {
+    font-weight: 600;
+    font-size: 1.0625rem;
+}
+
+.listOfEmployees {
+    list-style: disc;
+}
+
+.notActiveEmployees {
+    list-style: none;
+    padding-top: 0.625rem;
+}
+
+.emptyList {
+    padding-top: 1.25rem;
+    font-size: 1.125rem;
+    text-align: center;
+}

@@ -1,12 +1,12 @@
 .employeeName {
-    font-size: 16px;
-    font-weight: 500;
-    padding-top: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding-top: 0.625rem;
 }
 
 .radioWrapper {
     display: block;
-    padding-top: 10px;
+    padding-top: 0.625rem;
 }
 
 .radioLabel {
@@ -16,14 +16,14 @@
 }
 
 .radioSpan {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 400;
-}
-
-.activeEmployee {
-    color: #252bff;
 }
 
 .notActiveEmployee {
     color: #000;
+}
+
+.activeEmployee {
+    color: #252bff;
 }

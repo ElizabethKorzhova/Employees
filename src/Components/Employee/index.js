@@ -12,7 +12,7 @@ const Employee = ({
       <h4
         className={`${styles.employeeName}
         ${
-          activeEmployees.includes(employee)
+          activeEmployees.includes(employee.id)
             ? styles.activeEmployee
             : styles.notActiveEmployee
         }`}

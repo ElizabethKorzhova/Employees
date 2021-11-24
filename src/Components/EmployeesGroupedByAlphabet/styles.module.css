@@ -1,0 +1,29 @@
+.employeesSection {
+    width: 60%;
+}
+
+.employeesTitle {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.375rem;
+    padding-bottom: 2.5rem;
+}
+
+.employeesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border-right: 1px solid #c0c0c0;
+}
+
+.employeesContainer li {
+    width: 12.5rem;
+}
+
+.letter {
+    padding-bottom: 2.5rem;
+}
+
+.noEmployees {
+    padding-top: 0.625rem;
+}
